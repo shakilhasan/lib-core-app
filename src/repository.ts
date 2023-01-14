@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const eventEmitter = require("./event-manager").getInstance();
+import mongoose from 'mongoose';
+// import {eventEmitter} from './event-manager'.getInstance();
 
 const save = async (item:any, modelName:string) => {
     const model = new mongoose.models[modelName](item);
     const saveditem:any = await model.save();
-    eventEmitter.emit(`${modelName}Created`, saveditem);
+    // eventEmitter.emit(`${modelName}Created`, saveditem);
     return saveditem;
 };
 
@@ -13,27 +13,27 @@ const update = async (item:any, modelName:string) => {
         { _id: item._id },
         item
     );
-    eventEmitter.emit(`${modelName}Updated`, doc);
+    // eventEmitter.emit(`${modelName}Updated`, doc);
     return doc;
 };
 
-const updateAll = async (query:any, updateModel, modelName:string) => {
-    const doc = await mongoose.models[modelName].updateMany(query:any, updateModel);
-    eventEmitter.emit(`${modelName}Updated`, doc);
+const updateAll = async (query:any, updateModel:any, modelName:string) => {
+    const doc = await mongoose.models[modelName].updateMany(query, updateModel);
+    // eventEmitter.emit(`${modelName}Updated`, doc);
     return doc;
 };
 
-const deleteById = async (id, modelName:string) => {
+const deleteById = async (id:any, modelName:string) => {
     const model = await mongoose.models[modelName].findById(id);
     if (model) {
         const result = await mongoose.models[modelName].deleteOne({ _id: id });
-        eventEmitter.emit(`${modelName}Deleted`, model);
+        // eventEmitter.emit(`${modelName}Deleted`, model);
         return result;
     }
     throw new Error(`Product not found by the id: ${id}`);
 };
 
-const getById = async (id, modelName:string) => {
+const getById = async (id:any, modelName:string) => {
     const model = await mongoose.models[modelName].findById(id);
     if (model == null) {
         throw new Error(`${modelName} not found by the id: ${id}`);
@@ -52,9 +52,9 @@ const dynamicSearch = async (query:any, modelName:string) => {
 };
 
 const getSortClause = (payload:any) => {
-    let sort = {};
-    if (payload.sort) {
-        let key:object = payload.sort;
+    let sort: {[key: string]: any} = {}
+    if (payload?.sort) {
+        let key:string = payload.sort;
         const value = parseInt(payload.order, 10) ?? 1;
         sort[key] = value;
     } else {
@@ -79,7 +79,7 @@ const getAll = async ( modelName:string) => {  // todo - remove later
 
 const search = async (payload:any, query:any, modelName:string) => {
     const sort = getSortClause(payload);
-    const take = parseInt(payload?.pageSize ?? process.env.DEFAULT_PAGE_SIZE, 10);
+    const take = parseInt(payload?.pageSize ?? 20, 10);
     const skip = (parseInt(payload?.current, 10) - 1) * take;
 
     return mongoose.models[modelName]
@@ -90,7 +90,7 @@ const search = async (payload:any, query:any, modelName:string) => {
 };
 
 const getDropdownData = async (query:any, project:any, modelName:string) => {
-    return await mongoose.models[modelName]
+    return mongoose.models[modelName]
         .find(query)
         .select(project)
         .sort(project)
@@ -98,7 +98,7 @@ const getDropdownData = async (query:any, project:any, modelName:string) => {
         .exec();
 };
 
-module.exports = {
+export default {
     getAll,
     save,
     update,
