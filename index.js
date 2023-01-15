@@ -1,1 +1,1 @@
-export * as coreController  from './src/controller';
+export *  from './src/controller';
