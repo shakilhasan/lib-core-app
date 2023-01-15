@@ -1,4 +1,4 @@
-const { NotFound } = require("../common/errors");
+// const { NotFound } = require("../common/errors");
 const {
     getById,
     search,
@@ -9,7 +9,7 @@ const {
     deleteById, countDocuments,
 } = require("./repository");
 
-const getByIdHandler = async (req:any, res:any, next:any) => {
+const getByIdHandler = async (req, res, next) => {
     try {
         const ModelName = req.modelName;
         const { id } = req.query;
@@ -17,13 +17,13 @@ const getByIdHandler = async (req:any, res:any, next:any) => {
         if (item) {
             return res.status(200).send(item);
         }
-        throw new NotFound(`${ModelName} not found by the id: ${id}`);
+        // throw new NotFound(`${ModelName} not found by the id: ${id}`);
     } catch (error) {
         return next(error, req, res);
     }
 };
 
-const searchHandler = async (req:any, res:any, next:any) => {
+const searchHandler = async (req, res, next) => {
     try {
         const ModelName = req.modelName;
         const { body } = req;
@@ -43,7 +43,7 @@ const searchHandler = async (req:any, res:any, next:any) => {
     }
 };
 
-const countHandler = async (req:any, res:any, next:any) => {
+const countHandler = async (req, res, next) => {
     try {
         const ModelName = req.modelName;
         const { body } = req;
@@ -56,7 +56,7 @@ const countHandler = async (req:any, res:any, next:any) => {
     }
 };
 
-const saveHandler = async (req:any, res:any, next:any) => {
+const saveHandler = async (req, res, next) => {
     try {
         const ModelName = req.modelName;
         const { body } = req;
@@ -68,7 +68,7 @@ const saveHandler = async (req:any, res:any, next:any) => {
     }
 };
 
-const updateHandler = async (req:any, res:any, next:any) => {
+const updateHandler = async (req, res, next) => {
     try {
         const ModelName = req.modelName;
         const { body } = req;
@@ -79,7 +79,7 @@ const updateHandler = async (req:any, res:any, next:any) => {
     }
 };
 
-const deleteHandler = async (req:any, res:any, next:any) => {
+const deleteHandler = async (req, res, next) => {
     try {
         const ModelName = req.modelName;
         const { id } = req.query;
@@ -93,7 +93,7 @@ const deleteHandler = async (req:any, res:any, next:any) => {
 };
 
 // export
-export default {
+module.exports = {
     getByIdHandler,
     searchHandler,
     countHandler,
