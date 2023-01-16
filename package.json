@@ -1,0 +1,23 @@
+{
+  "author": "Md. Shakil Hasan Bin Younus",
+  "name": "lib-core-app",
+  "version": "1.0.0",
+  "description": "Node-App Core Module",
+  "main": "src/controller.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shakilhasan/lib-core-app.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shakilhasan/lib-core-app/issues"
+  },
+  "homepage": "https://github.com/shakilhasan/lib-core-app#readme",
+  "devDependencies": {
+    "eslint": "^8.30.0",
+    "prettier": "^2.8.1"
+  }
+}
