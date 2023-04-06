@@ -55,7 +55,8 @@ const getSortClause = (payload) => {
     let sort = {};
     if (payload.sort) {
         const key = payload.sort;
-        sort[key] = parseInt(payload.order, 10) ?? 1;
+        const value = parseInt(payload.order, 10) ?? 1;
+        sort[key] = value;
     } else {
         sort = { updatedAt: -1 };
     }
@@ -63,7 +64,8 @@ const getSortClause = (payload) => {
 };
 
 const count = async (query, modelName) => {
-    return await mongoose.models[modelName].find(query).count();
+    const data = await mongoose.models[modelName].find(query).count();
+    return data;
 };
 const countDocuments = async ( modelName) => {
 
